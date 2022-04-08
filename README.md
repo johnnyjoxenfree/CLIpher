@@ -31,4 +31,9 @@ The plaintext is: five seconds flat
 
 ./CLIpher.sh -r 'all my ghosts' -e                  # can use tag '-r' or '--rot13'
 The ciphertext is: nyy zl tubfgf
+
+# for the atbash cipher
+
+./CLIpher.sh -a 'ivxpovhh wirermt' -d               # can use tag '-a' or '--atbash'
+The plaintext is: reckless driving
 ```
