@@ -7,8 +7,8 @@ arg2=$4
 alph=abcdefghijklmnopqrstuvwxyz
 ralph=zyxwvutsrqponmlkjihgfedcba
 
-# caesar cipher function
-function caesar {
+# encode/decode decision
+function decision {
     case $arg1 in
         -e)    
             blanktext="ciphertext"
@@ -20,6 +20,11 @@ function caesar {
             echo "you suck"
             exit
     esac
+}
+
+# caesar cipher function
+function caesar {
+    decision
 
     for ((i=0; i < ${#text}; i++))
     do
@@ -30,17 +35,7 @@ function caesar {
 
 # rot13 function
 function rot13 {    
-    case $arg1 in
-        -e)    
-            blanktext="ciphertext"
-        ;;
-        -d)
-            blanktext="plaintext"
-        ;;
-        *)
-            echo "you suck"
-            exit
-    esac
+    decision
 
     echo -n "The $blanktext is: "
     echo $text  | tr '[a-z]' '[n-za-m]'
@@ -48,17 +43,7 @@ function rot13 {
 
 #atbash function
 function atbash {
-    case $arg1 in
-        -e)    
-            blanktext="ciphertext"
-        ;;
-        -d)
-            blanktext="plaintext"
-        ;;
-        *)
-            echo "you suck"
-            exit
-    esac
+    decision
 
     echo -n "The $blanktext is: "
     echo $text | tr "$alph" "$ralph"
