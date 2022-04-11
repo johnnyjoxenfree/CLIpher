@@ -6,6 +6,7 @@ arg1=$3
 arg2=$4
 alph=abcdefghijklmnopqrstuvwxyz
 ralph=zyxwvutsrqponmlkjihgfedcba
+col='\033[1;36m'
 
 # encode/decode decision
 function decision {
@@ -51,7 +52,7 @@ function caesar {
 
     done
 
-    echo "The $blanktext is: $new"
+    echo -e "The $blanktext is: ${col}$new"
 }
 
 # vernam function
@@ -107,7 +108,7 @@ function vernam {
         done
     fi
 
-    echo "The $blanktext is: $new"
+    echo -e "The $blanktext is: ${col}$new"
 }
 
 # rot13 function
@@ -115,7 +116,7 @@ function rot13 {
     decision
 
     echo -n "The $blanktext is: "
-    echo $text  | tr '[a-z]' '[n-za-m]'
+    echo -e ${col}$text  | tr '[a-z]' '[n-za-m]'
 }
 
 #atbash function
@@ -123,7 +124,7 @@ function atbash {
     decision
 
     echo -n "The $blanktext is: "
-    echo $text | tr "$alph" "$ralph"
+    echo -e ${col}$text | tr "$alph" "$ralph"
 }
 
 # checks against first argument to perform correct cipher
