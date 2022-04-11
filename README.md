@@ -15,7 +15,7 @@ The command line tool for encrypting and decrypting short messages with four bas
 
 ## Installation
 ```bash
-git pull https://github.com/johnnyjoxenfree/CLIpher.git
+git clone https://github.com/johnnyjoxenfree/CLIpher.git
 ```
 or download the `.zip` file, go to the download directory then run `install.sh`
 ```bash
