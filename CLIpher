@@ -42,12 +42,13 @@ function caesar {
             new=$new$txtchar
         else
             index=$(( $index + $arg2 ))
-            if [ $index > 26 ]
+            if [[ $index -ge 26 ]]
             then
                 index=$(( $index - 26 ))
             fi
             new=$new${alph:$index:1}
         fi
+
     done
 
     echo "The $blanktext is: $new"
@@ -74,7 +75,7 @@ function vernam {
                 new=$new$txtchar
             else
                 index=$(( $index + $kydex ))
-                if [ $index > 26 ]
+                if [[ $index -ge 26 ]]
                 then
                     index=$(( $index - 26 ))
                 fi
@@ -97,7 +98,7 @@ function vernam {
                 new=$new$txtchar
             else
                 index=$(( $index - $kydex + 26 ))
-                if [ $index > 26 ]
+                if [[ $index -ge 26 ]]
                 then
                     index=$(( $index - 26 ))
                 fi
