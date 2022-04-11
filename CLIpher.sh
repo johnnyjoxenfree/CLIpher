@@ -25,11 +25,10 @@ function decision {
 # caesar cipher function
 function caesar {
     decision
-
-    for ((i=0; i < ${#text}; i++))
-    do
-        char=$char${text:i:1}
-        echo $char
+#    for ((i=0; i < ${#text}; i++))
+#    do
+#        char=$char${text:i:1}
+#        echo $char
     done
 }
 
