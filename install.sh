@@ -1,4 +1,4 @@
 #!/bin/bash
 
 sudo chmod +x CLIpher
-sudo cp CLIpher $HOME/bin
+sudo cp CLIpher /usr/bin
