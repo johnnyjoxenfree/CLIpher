@@ -1,0 +1,146 @@
+#!/bin/bash
+
+# defining ciphertext and other arguments as global variables
+text=${2,,}
+arg1=$3
+arg2=$4
+alph=abcdefghijklmnopqrstuvwxyz
+ralph=zyxwvutsrqponmlkjihgfedcba
+
+# encode/decode decision
+function decision {
+    case $arg1 in
+        -e)    
+            blanktext="ciphertext"
+        ;;
+        -d)
+            blanktext="plaintext"
+        ;;
+        *)
+            echo "you suck"
+            exit
+    esac
+}
+
+# caesar function
+function caesar {
+    decision
+
+    if [[ $arg1 == '-d' ]]
+    then
+        arg2=$(( 26 - $arg2 ))
+    fi
+
+    for ((i=0; i < ${#text}; i++))
+    do
+        txtchar=${text:i:1}
+        alpchar=${alph%%$txtchar*}
+        index=${#alpchar}
+        
+        if [[ $index -eq ${#alph} ]]
+        then
+            new=$new$txtchar
+        else
+            index=$(( $index + $arg2 ))
+            if [ $index > 26 ]
+            then
+                index=$(( $index - 26 ))
+            fi
+            new=$new${alph:$index:1}
+        fi
+    done
+
+    echo "The $blanktext is: $new"
+}
+
+# vernam function
+function vernam {
+    decision
+
+    if [[ $arg1 == '-e' ]]
+    then
+        for ((i=0; i < ${#text}; i++))
+        do
+            txtchar=${text:i:1}
+            alpchar=${alph%%$txtchar*}
+            index=${#alpchar}
+
+            keychar=${arg2:i:1}
+            kyachar=${alph%%$keychar*}
+            kydex=${#kyachar}
+            
+            if [[ $index -eq ${#alph} ]]
+            then
+                new=$new$txtchar
+            else
+                index=$(( $index + $kydex ))
+                if [ $index > 26 ]
+                then
+                    index=$(( $index - 26 ))
+                fi
+                new=$new${alph:$index:1}
+            fi
+        done
+    else
+        for ((i=0; i < ${#text}; i++))
+        do
+            txtchar=${text:i:1}
+            alpchar=${alph%%$txtchar*}
+            index=${#alpchar}
+
+            keychar=${arg2:i:1}
+            kyachar=${alph%%$keychar*}
+            kydex=${#kyachar}
+            
+            if [[ $index -eq ${#alph} ]]
+            then
+                new=$new$txtchar
+            else
+                index=$(( $index - $kydex + 26 ))
+                if [ $index > 26 ]
+                then
+                    index=$(( $index - 26 ))
+                fi
+                new=$new${alph:$index:1}
+            fi
+        done
+    fi
+
+    echo "The $blanktext is: $new"
+}
+
+# rot13 function
+function rot13 {    
+    decision
+
+    echo -n "The $blanktext is: "
+    echo $text  | tr '[a-z]' '[n-za-m]'
+}
+
+#atbash function
+function atbash {
+    decision
+
+    echo -n "The $blanktext is: "
+    echo $text | tr "$alph" "$ralph"
+}
+
+# checks against first argument to perform correct cipher
+case "$1" in
+    -c | --caesar)
+        caesar
+    ;;
+    -v | --vernam)
+        vernam
+    ;;
+    -r | --rot13)
+        rot13
+    ;;
+    -a | --atbash)
+        atbash
+    ;;
+    *)
+        echo "unknown"
+esac
+
+# ~iosj 2022
