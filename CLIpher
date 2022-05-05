@@ -6,7 +6,8 @@ arg1=$3
 arg2=$4
 alph=abcdefghijklmnopqrstuvwxyz
 ralph=zyxwvutsrqponmlkjihgfedcba
-col='\033[1;36m'
+col='\033[0;36m'
+bscol='\033[0m'
 
 # encode/decode decision
 function decision {
@@ -18,7 +19,7 @@ function decision {
             blanktext="plaintext"
         ;;
         *)
-            echo "you suck"
+            echo "please specify whether you would like to encode or decode your text"
             exit
     esac
 }
@@ -26,6 +27,8 @@ function decision {
 # caesar function
 function caesar {
     decision
+
+    new=""
 
     if [[ $arg1 == '-d' ]]
     then
@@ -49,10 +52,14 @@ function caesar {
             fi
             new=$new${alph:$index:1}
         fi
-
     done
 
-    echo -e "The $blanktext is: ${col}$new"
+    if [[ $1 == '-c' || $1 == '--caesar' ]]
+    then
+        echo -e "The $blanktext is: ${col}$new"
+    else
+        echo -e "${bscol}Cipher rotation $k: ${col}$new"
+    fi
 }
 
 # vernam function
@@ -119,12 +126,23 @@ function rot13 {
     echo -e ${col}$text  | tr '[a-z]' '[n-za-m]'
 }
 
-#atbash function
+# atbash function
 function atbash {
     decision
 
     echo -n "The $blanktext is: "
     echo -e ${col}$text | tr "$alph" "$ralph"
+}
+
+# caesar force function
+function caesarforce {
+    arg1='-e'
+
+    for ((k=0; k < 26; k++))
+    do
+        arg2=$k
+        caesar
+    done
 }
 
 # checks against first argument to perform correct cipher
@@ -140,6 +158,9 @@ case "$1" in
     ;;
     -a | --atbash)
         atbash
+    ;;
+    -cf | --caesarforce)
+        caesarforce
     ;;
     *)
         echo "unknown"

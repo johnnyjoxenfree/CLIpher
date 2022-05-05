@@ -44,4 +44,15 @@ The plaintext is: reckless driving
 
 CLIpher -v 'doomsday' -e 'zquzqkgu'            # can use tag '-v' or '--vernam'
 The ciphertext is: ceilings
+
+# for all possible caesar rotations
+
+CLIpher -cf 'chemtrails'                       # can use tag '-cf' or '--caesarforce'
+Cipher rotation 0: chemtrails
+Cipher rotation 1: difnusbjmt
+Cipher rotation 2: ejgovtcknu
+...
+Cipher rotation 23: zebjqoxfip
+Cipher rotation 24: afckrpygjq
+Cipher rotation 25: bgdlsqzhkr
 ```
